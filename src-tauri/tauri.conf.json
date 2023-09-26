@@ -16,6 +16,36 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "dialog": {
+        "all": false,
+        "ask": true,
+        "confirm": false,
+        "message": false,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "all": false,
+        "copyFile": false,
+        "createDir": false,
+        "exists": false,
+        "readDir": false,
+        "readFile": true,
+        "removeDir": false,
+        "removeFile": false,
+        "renameFile": false,
+        "scope": [
+          "$DOCUMENT/*",
+          "$DESKTOP/*"
+        ],
+        "writeFile": true
+      },
+      "path": {
+        "all": true
+      },
+      "notification": {
+        "all": true
       }
     },
     "bundle": {

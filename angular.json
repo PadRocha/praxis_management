@@ -9,12 +9,11 @@
     "praxis_management": {
       "root": "",
       "projectType": "application",
-      
-  "schematics": {
-    "@schematics/angular:component": {
-      "style": "scss"
-    }
-  },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
