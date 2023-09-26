@@ -1,0 +1,76 @@
+@mixin scroll {
+  scrollbar-color: $scrollbar-thumb $scrollbar-track;
+
+  &::-webkit-scrollbar {
+    width: auto;
+    height: auto;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $scrollbar-track;
+  }
+}
+
+@mixin interactive($color) {
+  background-color: $color !important;
+
+  &:hover {
+    background-color: lighten($color, $lighter) !important;
+  }
+
+  &:active {
+    background-color: darken($color, $darker) !important;
+  }
+}
+
+@mixin icon($url, $size: $icons-size) {
+  display: inline-flex !important;
+  width: $size;
+  -webkit-mask: url(/assets/icons/#{$url}.svg) 0 0 / contain no-repeat,
+  linear-gradient(#fff 0 0) !important;
+  mask: url(/assets/icons/#{$url}.svg) 0 0 / contain no-repeat,
+  linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: destination-in !important;
+  mask-composite: intersect !important;
+  background: currentColor !important;
+
+  &::before {
+    content: '';
+    display: block !important;
+    padding-top: 100% !important;
+  }
+}
+
+@mixin iconsCollection($collection, $size: $icons-size) {
+  @each $icon in $collection {
+    .ico-#{$icon} {
+      @include icon(#{$icon}, $size);
+    }
+  }
+}
+
+@mixin fasesButtons {
+  color: $item-color;
+  background-color: $item-color;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:focus {
+    color: $item-color;
+  }
+
+  @for $i from 1 to length($option-collection)+1 {
+    &.idN#{($i - 1)} {
+      $color: nth($option-collection, $i);
+      color: #000;
+      background-color: $color;
+    }
+  }
+}

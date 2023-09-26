@@ -5,15 +5,16 @@
   "cli": {
     "analytics": false
   },
+  "projects": {
+    "praxis_management": {
+      "root": "",
+      "projectType": "application",
+      
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "projects": {
-    "praxis_management": {
-      "root": "",
-      "projectType": "application",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -25,9 +26,25 @@
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "src/assets/scss",
+                "node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
