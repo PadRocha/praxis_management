@@ -1,0 +1,6 @@
+@import 'local_variables';
+@import 'local_mixins';
+
+.ico-alert {
+  @include icon(alert);
+}

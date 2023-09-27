@@ -1,0 +1,17 @@
+@import "functions";
+@import "variables";
+
+button[type='button'] {
+  color: $gray-300;
+  border: $border-width solid $gray-300;
+  background-color: transparent;
+
+  &:hover {
+    border: $border-width solid $gray-300;
+    background-color: $gray-100;
+  }
+}
+
+.mh-400 {
+  max-height: 400%;
+}

@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h4 class="modal-title">Confirmar</h4>
+  <button type="button" ngbAutofocus class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <p>Para {{action}} <i>{{type}}</i>, escriba "<a copy>{{confirm_word}}</a>" para confirmar.
+  </p>
+  <input [formControl]="confirm_form" type="text" class="form-control">
+</div>
+<div class="modal-footer">
+  <button (click)="cancel()" type="button" class="btn btn-sm btn-outline-danger">Cancelar</button>
+  <button (click)="onSubmit()" type="button" class="btn btn-sm btn-outline-dark" [disabled]="disable">
+    {{textButton | capitalize}}
+  </button>
+</div>

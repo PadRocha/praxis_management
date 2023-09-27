@@ -1,0 +1,14 @@
+<input #input [formControl]="_form" (focus)="inputOff()" [ngClass]="class" [type]="type"
+  [ngStyle]="{'max-width.rem': width}" min="1" class="form-control form-control-sm w-auto">
+<button (click)="toggle()" [ngClass]="class" type="button" class="btn dropdown-toggle dropdown-toggle-split">
+</button>
+<ng-container *ngIf="input_number_on">
+  <div
+    class="position-absolute bottom-100 start-0 d-flex flex-column w-100 mh-400 border rounded-top overflow-y-auto m-0 border-bottom-0">
+    <ng-container *ngFor="let i of list">
+      <button (click)="value = i" class="btn btn-sm btn-light border-0 rounded-0 text-end">
+        {{i}}
+      </button>
+    </ng-container>
+  </div>
+</ng-container>

@@ -1,0 +1,25 @@
+@import 'functions';
+@import 'variables';
+@import 'mixins/breakpoints';
+@import 'local_variables';
+
+:host {
+  font-family: 'Lato', sans-serif;
+}
+
+main {
+  height: 50vh;
+}
+
+aside {
+  height: calc(50vh - $header-min-height);
+}
+
+@include media-breakpoint-up(md) {
+
+  main,
+  aside {
+    width: 50%;
+    height: calc(100vh - $header-min-height) !important;
+  }
+}

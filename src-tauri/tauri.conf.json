@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeDevCommand": "pnpm start --port 1420",
     "beforeBuildCommand": "pnpm build",
+    "beforeDevCommand": "pnpm start --port 1420",
     "devPath": "http://localhost:1420",
     "distDir": "../dist/praxis_management",
     "withGlobalTauri": false
@@ -13,10 +13,6 @@
   "tauri": {
     "allowlist": {
       "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      },
       "dialog": {
         "all": false,
         "ask": true,
@@ -41,24 +37,28 @@
         ],
         "writeFile": true
       },
+      "notification": {
+        "all": true
+      },
       "path": {
         "all": true
       },
-      "notification": {
-        "all": true
+      "shell": {
+        "all": false,
+        "open": true
       }
     },
     "bundle": {
       "active": true,
-      "targets": "all",
-      "identifier": "com.tauri.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
         "icons/128x128@2x.png",
         "icons/icon.icns",
         "icons/icon.ico"
-      ]
+      ],
+      "identifier": "com.tauri.dev",
+      "targets": "all"
     },
     "security": {
       "csp": null
@@ -66,10 +66,10 @@
     "windows": [
       {
         "fullscreen": false,
+        "height": 600,
         "resizable": true,
         "title": "praxis_management",
-        "width": 800,
-        "height": 600
+        "width": 800
       }
     ]
   }

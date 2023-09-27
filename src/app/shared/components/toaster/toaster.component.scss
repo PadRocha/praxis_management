@@ -1,0 +1,7 @@
+@import 'functions';
+@import 'variables';
+@import 'mixins/breakpoints';
+
+.toaster {
+  z-index: $zindex-toast;
+}
