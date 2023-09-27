@@ -44,6 +44,16 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (!this.validForm) return;
     const params = this.user_form.getRawValue();
+    this.service.login(params).subscribe({
+      next: (any) => {
+        console.log(any);
+      },
+      error: (err) => {
+        console.log("algo pasó");
+      }
+    }).add(() => {
+      console.log("Finalizó");
+    });
     // this.service.login(params).subscribe({
     //   next: ({ token }) => {
     //     this.service.setToken(token);

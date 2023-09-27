@@ -8,17 +8,17 @@ import { from } from "rxjs";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  greetingMessage = "";
+  // greetingMessage = "";
 
-  greet(event: SubmitEvent, name: string): void {
-    event.preventDefault();
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    from(invoke<string>("greet", { name })).subscribe({
-      next: (text) => {
-        this.greetingMessage = text;
-      },
-      error: (err) => {
-      },
-    });
-  }
+  // greet(event: SubmitEvent, name: string): void {
+  //   event.preventDefault();
+  //   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  //   from(invoke<string>("greet", { name })).subscribe({
+  //     next: (text) => {
+  //       this.greetingMessage = text;
+  //     },
+  //     error: (err) => {
+  //     },
+  //   });
+  // }
 }

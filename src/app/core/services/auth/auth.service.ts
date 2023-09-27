@@ -4,7 +4,7 @@ import { Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
 // import { Router } from '@angular/router';
 import { IUser } from '@core/models';
 import { invoke } from '@tauri-apps/api';
-import { from } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 // import { environment } from '@environment';
 
 @Injectable({
@@ -35,11 +35,8 @@ export class AuthService {
       sessionStorage.setItem('token', JSON.stringify(item));
   }
 
-  login(user: IUser) {
-    return from(invoke('login', {
-      user: user.sub,
-      password: user.password
-    }));
+  login(user: { nickname: string, password: string }): Observable<any> {
+    return from(invoke<any>('login', user));
     // const params = JSON.stringify(user);
     // return this.http.post<{ token: string }>(`/login`, params, {
     //   headers: this.headersJSON,

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '@core/services';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditGuard implements CanActivate {
+export class EditGuard  {
   constructor(
     private user: UserService,
     private router: Router,
