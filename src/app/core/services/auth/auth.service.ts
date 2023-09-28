@@ -1,56 +1,48 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IUser } from '@core/models';
 import { invoke } from '@tauri-apps/api';
 import { Observable, from, map } from 'rxjs';
 // import { environment } from '@environment';
 
+type User = {
+  _id: {
+    $oid: any;
+  };
+  name: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // protected url: String;
-  private headersJSON: HttpHeaders;
-
   constructor(
     protected http: HttpClient,
-    // protected router: Router,
+    protected router: Router,
     @Inject(PLATFORM_ID) protected platformId: InjectionToken<Object>
-  ) {
-    // this.url = environment.httpUrl;
-    this.headersJSON = new HttpHeaders().set(
-      'Content-Type',
-      'application/json'
-    );
-  }
+  ) { }
 
-  setToken(value: string, expiry = true): void {
+  setToken({ $oid }: User['_id'], expiry = true): void {
     const now = new Date();
-    // `item` is an object which contains the original value
-    // as well as the time when it's supposed to expire
-    const item = { value, expiry: expiry ? now.getTime() + 86_400_000 : false };
+    const item = { value: $oid, expiry: expiry ? now.getTime() + 86_400_000 : false };
     if (isPlatformBrowser(this.platformId))
-      sessionStorage.setItem('token', JSON.stringify(item));
+      sessionStorage.setItem('id', JSON.stringify(item));
   }
 
-  login(user: { nickname: string, password: string }): Observable<any> {
-    return from(invoke<any>('login', user));
-    // const params = JSON.stringify(user);
-    // return this.http.post<{ token: string }>(`/login`, params, {
-    //   headers: this.headersJSON,
-    // });
+  login(user: { nickname: string, password: string }): Observable<User> {
+    return from(invoke<User>('login', user));
   }
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) sessionStorage.removeItem('token');
-    // this.router.navigate(['/login']);
+    if (isPlatformBrowser(this.platformId)) sessionStorage.removeItem('id');
+    this.router.navigate(['/login']);
   }
 
   get getToken(): string | null {
     const token = isPlatformBrowser(this.platformId)
-      ? sessionStorage.getItem('token')
+      ? sessionStorage.getItem('id')
       : null;
     if (!token) return null;
 
@@ -66,7 +58,7 @@ export class AuthService {
 
   get loggedIn(): boolean {
     return isPlatformBrowser(this.platformId)
-      ? !!sessionStorage.getItem('token')
+      ? !!sessionStorage.getItem('id')
       : false;
   }
 }

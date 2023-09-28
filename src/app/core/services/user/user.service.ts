@@ -1,68 +1,73 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
-// import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '@core/services';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { invoke } from '@tauri-apps/api';
+import { BehaviorSubject, Observable, from } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 
-type authRole = 'READ' | 'WRITE' | 'EDIT' | 'GRANT' | 'ADMIN';
-
 interface userIdentity {
-  identifier: string | null;
-  nickname: string | null;
-  roles: authRole[];
+  _id: string | null;
+  name: string | null;
+}
+
+type User = {
+  _id: {
+    $oid: any;
+  };
+  name: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends AuthService {
-  // private data$: Observable<userIdentity>;
   private userChange$: BehaviorSubject<userIdentity>;
 
   constructor(
     protected override http: HttpClient,
-    // protected override router: Router,
+    protected override router: Router,
     @Inject(PLATFORM_ID) protected override platformId: InjectionToken<Object>
   ) {
-    super(http, platformId);
-    // this.data$ = this.http.get<userIdentity>(`${this.url}/user`);
+    super(http, router, platformId);
     this.userChange$ = new BehaviorSubject<userIdentity>({
-      identifier: null,
-      nickname: null,
-      roles: [],
+      _id: null,
+      name: null,
     });
-
-    if (this.loggedIn) this.update();
+    if (this.loggedIn) {
+      const token = this.getToken;
+      from(invoke<User>('user', { _id: token })).subscribe({
+        next: this.update,
+        error: this.destroy,
+      });
+    }
   }
 
-  update(): void {
-    // this.data$.subscribe({
-    //   next: (user) => {
-    //     this.userChange$.next(user);
-    //   },
-    //   error: this.destroy,
-    // });
+  update({ _id, name }: User): void {
+    console.log(_id, name);
+    this.userChange$.next({
+      _id: _id.$oid,
+      name
+    });
   }
 
   destroy(): void {
     this.userChange$.next({
-      identifier: null,
-      nickname: null,
-      roles: [],
+      _id: null,
+      name: null,
     });
   }
 
   get userSync() {
     return this.userChange$.asObservable().pipe(
-      skipWhile(({ identifier }) => {
-        return !identifier && this.loggedIn;
+      skipWhile(({ _id }) => {
+        return !_id && this.loggedIn;
       }),
     );
   }
 
   get getId(): string | null {
-    return this.userChange$.getValue().identifier;
+    return this.userChange$.getValue()._id;
   }
 
   get logged(): boolean {
@@ -73,15 +78,7 @@ export class UserService extends AuthService {
     return this.getId === _id;
   }
 
-  get getNickname(): string | null {
-    return this.userChange$.getValue().nickname;
-  }
-
-  get getRoles(): authRole[] {
-    return this.userChange$.getValue().roles;
-  }
-
-  hasRole(...roles: authRole[]): boolean {
-    return roles.some((r) => this.getRoles.includes(r));
+  get getName(): string | null {
+    return this.userChange$.getValue().name;
   }
 }

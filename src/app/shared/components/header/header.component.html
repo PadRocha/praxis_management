@@ -1,0 +1,38 @@
+<ng-container *ngIf="logged">
+  <div [ngbCollapse]="is_collapsed" class="navbar-collapse collapse w-100 order-1 order-md-0">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item d-flex justify-content-center">
+        <a [routerLink]="['/pdf']" routerLinkActive="active" class="nav-link">PDF</a>
+      </li>
+    </ul>
+  </div>
+</ng-container>
+<div [ngClass]="{'mx-md-auto order-md-0 px-md-0 flex-md-grow-0': logged}"
+  class="d-flex flex-row flex-grow-1 justify-content-between px-3">
+  <a class="navbar-brand" [routerLink]="['/home']">
+    <img src="assets/imgs/simbavector.svg" width="30" height="30" alt="home" title="Cétr!co.Productions"
+      draggable="false" class="d-inline-block align-top bg-light rounded me-1">
+    Catálogo.
+  </a>
+  <ng-container *ngIf="logged">
+    <button (click)="collapse()" type="button" class="navbar-toggler" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </ng-container>
+</div>
+<ng-container *ngIf="logged">
+  <div [ngbCollapse]="is_collapsed" class="navbar-collapse collapse w-100 order-3 d-md-flex justify-content-end">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item d-flex align-items-center p-2 d-flex justify-content-center">
+        <a (click)="return()" class="nav-link btn">
+          <span class="ico-return me-2"></span>Regresar
+        </a>
+      </li>
+      <li class="nav-item d-flex align-items-center p-2 d-flex justify-content-center">
+        <a (click)="logout()" class="nav-link btn">
+          <span class="ico-logout me-2"></span>Salir
+        </a>
+      </li>
+    </ul>
+  </div>
+</ng-container>

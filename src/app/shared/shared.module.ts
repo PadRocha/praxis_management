@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ConfirmComponent, InputSelectComponent, ScrollToTopComponent, ToasterComponent } from './components';
+import { ConfirmComponent, InputSelectComponent, HeaderComponent, ScrollToTopComponent, ToasterComponent } from './components';
 import { CopyDirective, DebounceClickDirective } from './directives';
 import { CapitalizePipe, TimeAgoPipe } from './pipes';
 
@@ -18,6 +18,7 @@ import { CapitalizePipe, TimeAgoPipe } from './pipes';
     ConfirmComponent,
     CopyDirective,
     InputSelectComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +36,7 @@ import { CapitalizePipe, TimeAgoPipe } from './pipes';
     ConfirmComponent,
     CopyDirective,
     InputSelectComponent,
+    HeaderComponent,
   ]
 })
 export class SharedModule { }

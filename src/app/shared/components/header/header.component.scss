@@ -1,0 +1,13 @@
+@import 'local_mixins';
+@import 'local_variables';
+
+:host {
+  min-height: $header-min-height;
+
+  img {
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  @include iconsCollection($header-icon-collection);
+}

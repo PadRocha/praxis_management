@@ -7,37 +7,41 @@ use mongodb::{
     Client,
 };
 
-// create the error type that represents all errors possible in our program
-#[derive(Debug, thiserror::Error)]
-enum Error {
-    #[error(transparent)]
-    Io(#[from] std::io::Error),
-}
+#[tauri::command]
+async fn login(
+    client: tauri::State<'_, Client>,
+    nickname: String,
+    password: String,
+) -> Result<Document, String> {
+    let db = client.default_database().unwrap();
+    let target_collection = db.collection::<Document>("users");
 
-// we must manually implement serde::Serialize
-impl serde::Serialize for Error {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        serializer.serialize_str(self.to_string().as_ref())
+    let filter = doc! { "name": nickname, "password": password };
+    let projection = doc! { "name": 1, "_id": 1 };
+    let options = FindOneOptions::builder().projection(projection).build();
+    let user = match target_collection.find_one(filter, options).await {
+        Ok(doc) => doc,
+        _ => None,
+    };
+    if let Some(data) = user {
+        Ok(data)
+    } else {
+        Err("No user".into())
     }
 }
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
-#[tauri::command]
-async fn login(client: tauri::State<'_, Client>, nickname: String) -> Result<Document, String> {
+async fn user(client: tauri::State<'_, Client>, _id: String) -> Result<Document, String> {
     let db = client.default_database().unwrap();
     let target_collection = db.collection::<Document>("users");
-    let user = target_collection
-        .find_one(doc! { "name": nickname }, FindOneOptions::default())
-        .await
-        .unwrap();
+
+    let filter = doc! { "_id": _id };
+    let projection = doc! { "name":1, "_id": 1 };
+    let options = FindOneOptions::builder().projection(projection).build();
+    let user = match target_collection.find_one(filter, options).await {
+        Ok(doc) => doc,
+        _ => None,
+    };
     if let Some(data) = user {
         Ok(data)
     } else {
@@ -52,7 +56,7 @@ fn main() {
 
     tauri::Builder::default()
         .manage(client)
-        .invoke_handler(tauri::generate_handler![greet, login])
+        .invoke_handler(tauri::generate_handler![login, user])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
