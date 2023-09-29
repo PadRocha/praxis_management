@@ -16,7 +16,7 @@ async fn login(
     let db = client.default_database().unwrap();
     let target_collection = db.collection::<Document>("users");
 
-    let filter = doc! { "name": nickname, "password": password };
+    let filter = doc! { "name": nickname, "pass": password };
     let projection = doc! { "name": 1, "_id": 1 };
     let options = FindOneOptions::builder().projection(projection).build();
     let user = match target_collection.find_one(filter, options).await {

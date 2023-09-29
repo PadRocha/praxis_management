@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services';
-import { invoke } from '@tauri-apps/api';
-import { BehaviorSubject, Observable, from } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { skipWhile } from 'rxjs/operators';
 
 interface userIdentity {
@@ -34,13 +33,13 @@ export class UserService extends AuthService {
       _id: null,
       name: null,
     });
-    if (this.loggedIn) {
-      const token = this.getToken;
-      from(invoke<User>('user', { _id: token })).subscribe({
-        next: this.update,
-        error: this.destroy,
-      });
-    }
+    // if (this.loggedIn) {
+    //   const token = this.getToken;
+    //   from(invoke<User>('user', { _id: token })).subscribe({
+    //     next: this.update,
+    //     error: this.destroy,
+    //   });
+    // }
   }
 
   update({ _id, name }: User): void {

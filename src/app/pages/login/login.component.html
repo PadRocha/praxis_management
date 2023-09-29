@@ -17,6 +17,8 @@
       <input type="password" name="password" id="password" formControlName="password" autocomplete="off"
         placeholder="Contraseña" class="form-control">
     </div>
-    <button type="submit" class="btn btn-outline-dark">Entrar</button>
+    <ng-container *ngIf="!is_loading">
+      <button type="submit" class="btn btn-outline-dark">Entrar</button>
+    </ng-container>
   </form>
 </main>

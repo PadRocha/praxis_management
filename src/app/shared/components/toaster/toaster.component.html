@@ -1,8 +1,8 @@
 <div class="toaster position-fixed top-0 end-0 px-3 py-2 m-16">
   <ng-container *ngFor="let toast of toasts">
-    <!-- <ngb-toast [class]="className(toast)" [autohide]="true" [delay]="toast.delay" (hidden)="remove(toast)"
+    <ngb-toast [class]="className(toast)" [autohide]="true" [delay]="toast.delay" (hidden)="remove(toast)"
       class="text-light">
       {{toast.header}} [{{toast.type}}]
-    </ngb-toast> -->
+    </ngb-toast>
   </ng-container>
 </div>

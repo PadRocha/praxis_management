@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 // import { Router } from '@angular/router';
 import { UserService } from '@core/services';
 import { ControlsOf } from '@login/models';
@@ -23,15 +24,18 @@ interface Login {
 })
 export class LoginComponent implements OnInit {
   user_form: FormGroup<ControlsOf<Login>>
+  is_loading: boolean;
 
   constructor(
     private service: UserService,
-    // private toast: ToastService,
+    private router: Router,
+    private toast: ToastService,
   ) {
     this.user_form = new FormGroup<ControlsOf<Login>>({
       nickname: new FormControl('', { validators: Validators.required, nonNullable: true }),
       password: new FormControl('', { validators: Validators.required, nonNullable: true }),
     });
+    this.is_loading = false;
   }
 
   ngOnInit(): void {
@@ -42,27 +46,20 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.is_loading = true;
     if (!this.validForm) return;
     const params = this.user_form.getRawValue();
     this.service.login(params).subscribe({
-      next: (any) => {
-        console.log(any);
+      next: (data) => {
+        this.service.setToken(data._id);
+        this.service.update(data);
+        this.router.navigate(['/home']);
       },
-      error: (err) => {
-        console.log("algo pasó");
+      error: () => {
+        this.toast.show('Login', 'danger');
       }
     }).add(() => {
-      console.log("Finalizó");
+      this.is_loading = false;
     });
-    // this.service.login(params).subscribe({
-    //   next: ({ token }) => {
-    //     this.service.setToken(token);
-    //     this.service.update();
-    //     // this.router.navigate(['/home']);
-    //   },
-    //   error: () => {
-    //     this.toast.show('Login', 'danger');
-    //   }
-    // });
   }
 }

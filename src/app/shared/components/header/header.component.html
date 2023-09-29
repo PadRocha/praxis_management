@@ -2,7 +2,16 @@
   <div [ngbCollapse]="is_collapsed" class="navbar-collapse collapse w-100 order-1 order-md-0">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item d-flex justify-content-center">
-        <a [routerLink]="['/pdf']" routerLinkActive="active" class="nav-link">PDF</a>
+        <a [routerLink]="['/Responsivas']" routerLinkActive="active" class="nav-link">Responsivas</a>
+      </li>
+      <li class="nav-item d-flex justify-content-center">
+        <a [routerLink]="['/Responsivas']" routerLinkActive="active" class="nav-link">Inventario</a>
+      </li>
+      <li class="nav-item d-flex justify-content-center">
+        <a [routerLink]="['/Responsivas']" routerLinkActive="active" class="nav-link">Cobros</a>
+      </li>
+      <li class="nav-item d-flex justify-content-center">
+        <a [routerLink]="['/Responsivas']" routerLinkActive="active" class="nav-link">configuración</a>
       </li>
     </ul>
   </div>
@@ -12,7 +21,7 @@
   <a class="navbar-brand" [routerLink]="['/home']">
     <img src="assets/imgs/simbavector.svg" width="30" height="30" alt="home" title="Cétr!co.Productions"
       draggable="false" class="d-inline-block align-top bg-light rounded me-1">
-    Catálogo.
+    Gestión
   </a>
   <ng-container *ngIf="logged">
     <button (click)="collapse()" type="button" class="navbar-toggler" aria-label="Toggle navigation">
