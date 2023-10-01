@@ -1,62 +1,30 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use mongodb::{
-    bson::{doc, Document},
-    options::{ClientOptions, FindOneOptions},
-    Client,
-};
+use dotenv::dotenv;
+use mongodb::{options::ClientOptions, Client};
+use responsibilities::create_responsibility;
+use std::env::var;
+use users::{create_user, get_user, login_user};
 
-#[tauri::command]
-async fn login(
-    client: tauri::State<'_, Client>,
-    nickname: String,
-    password: String,
-) -> Result<Document, String> {
-    let db = client.default_database().unwrap();
-    let target_collection = db.collection::<Document>("users");
-
-    let filter = doc! { "name": nickname, "pass": password };
-    let projection = doc! { "name": 1, "_id": 1 };
-    let options = FindOneOptions::builder().projection(projection).build();
-    let user = match target_collection.find_one(filter, options).await {
-        Ok(doc) => doc,
-        _ => None,
-    };
-    if let Some(data) = user {
-        Ok(data)
-    } else {
-        Err("No user".into())
-    }
-}
-
-#[tauri::command]
-async fn user(client: tauri::State<'_, Client>, _id: String) -> Result<Document, String> {
-    let db = client.default_database().unwrap();
-    let target_collection = db.collection::<Document>("users");
-
-    let filter = doc! { "_id": _id };
-    let projection = doc! { "name":1, "_id": 1 };
-    let options = FindOneOptions::builder().projection(projection).build();
-    let user = match target_collection.find_one(filter, options).await {
-        Ok(doc) => doc,
-        _ => None,
-    };
-    if let Some(data) = user {
-        Ok(data)
-    } else {
-        Err("No user".into())
-    }
-}
+mod responsibilities;
+mod users;
 
 fn main() {
-    let db_url = "mongodb://localhost:27017/praxis";
+    dotenv().ok();
+    let db_url = var("mongodb").expect("mongodb must be set.");
     let options = ClientOptions::parse(db_url).expect("invalid database url");
     let client = Client::with_options(options).unwrap();
+    let db = client.database("praxis");
 
     tauri::Builder::default()
-        .manage(client)
-        .invoke_handler(tauri::generate_handler![login, user])
+        .manage(db)
+        .invoke_handler(tauri::generate_handler![
+            create_responsibility,
+            create_user,
+            get_user,
+            login_user,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

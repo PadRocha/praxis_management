@@ -4,6 +4,14 @@ import { loggedGuard, loginGuard } from '@core/guards';
 
 const routes: Routes = [
   {
+    path: 'login',
+    canActivate: [loginGuard],
+    async loadComponent() {
+      const { LoginComponent } = await import('./pages/login/login.component');
+      return LoginComponent;
+    },
+  },
+  {
     path: 'home',
     canActivate: [loggedGuard],
     async loadComponent() {
@@ -12,11 +20,35 @@ const routes: Routes = [
     },
   },
   {
-    path: 'login',
-    canActivate: [loginGuard],
+    path: 'responsibilities',
+    canActivate: [loggedGuard],
     async loadComponent() {
-      const { LoginComponent } = await import('./pages/login/login.component');
-      return LoginComponent;
+      const { ResponsibilitiesComponent } = await import('./pages/responsibilities/responsibilities.component');
+      return ResponsibilitiesComponent;
+    },
+  },
+  {
+    path: 'inventory',
+    canActivate: [loggedGuard],
+    async loadComponent() {
+      const { InventoryComponent } = await import('./pages/inventory/inventory.component');
+      return InventoryComponent;
+    },
+  },
+  {
+    path: 'collection',
+    canActivate: [loggedGuard],
+    async loadComponent() {
+      const { CollectionComponent } = await import('./pages/collection/collection.component');
+      return CollectionComponent;
+    },
+  },
+  {
+    path: 'settings',
+    canActivate: [loggedGuard],
+    async loadComponent() {
+      const { SettingsComponent } = await import('./pages/settings/settings.component');
+      return SettingsComponent;
     },
   },
   {

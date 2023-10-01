@@ -13,7 +13,8 @@ edition = "2021"
 tauri-build = { version = "1.4", features = [] }
 
 [dependencies]
-tauri = { version = "1.4", features = [ "window-maximize",
+tauri = { version = "1.4", features = [
+  "window-maximize",
   "path-all",
   "dialog-ask",
   "notification-all",
@@ -27,8 +28,6 @@ serde = { version = "1.0", features = ["derive"] }
 mongodb = { version = "2.6.1", features = ["tokio-sync"] }
 dotenv = "0.15.0"
 pretty_env_logger = "0.5.0"
-futures = "0.3.28"
-thiserror = "1.0.49"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

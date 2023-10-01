@@ -33,13 +33,6 @@ export class UserService extends AuthService {
       _id: null,
       name: null,
     });
-    // if (this.loggedIn) {
-    //   const token = this.getToken;
-    //   from(invoke<User>('user', { _id: token })).subscribe({
-    //     next: this.update,
-    //     error: this.destroy,
-    //   });
-    // }
   }
 
   update({ _id, name }: User): void {

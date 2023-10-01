@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { Router } from '@angular/router';
 import { UserService } from '@core/services';
 import { ControlsOf } from '@login/models';
 import { ToastService } from '@shared/services';
 
 interface Login {
-  nickname: string;
-  password: string;
+  name: string;
+  pass: string;
 }
 
 @Component({
@@ -32,8 +31,8 @@ export class LoginComponent implements OnInit {
     private toast: ToastService,
   ) {
     this.user_form = new FormGroup<ControlsOf<Login>>({
-      nickname: new FormControl('', { validators: Validators.required, nonNullable: true }),
-      password: new FormControl('', { validators: Validators.required, nonNullable: true }),
+      name: new FormControl('', { validators: Validators.required, nonNullable: true }),
+      pass: new FormControl('', { validators: Validators.required, nonNullable: true }),
     });
     this.is_loading = false;
   }
@@ -42,12 +41,12 @@ export class LoginComponent implements OnInit {
   }
 
   get validForm(): boolean {
-    return !!this.user_form.get('nickname')?.valid && !!this.user_form.get('password')?.valid;
+    return !!this.user_form.get('name')?.valid && !!this.user_form.get('pass')?.valid;
   }
 
   onSubmit(): void {
-    this.is_loading = true;
     if (!this.validForm) return;
+    this.is_loading = true;
     const params = this.user_form.getRawValue();
     this.service.login(params).subscribe({
       next: (data) => {
@@ -55,7 +54,8 @@ export class LoginComponent implements OnInit {
         this.service.update(data);
         this.router.navigate(['/home']);
       },
-      error: () => {
+      error: (e) => {
+        console.error(e);
         this.toast.show('Login', 'danger');
       }
     }).add(() => {

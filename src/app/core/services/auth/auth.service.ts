@@ -1,10 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from '@core/models';
 import { invoke } from '@tauri-apps/api';
-import { Observable, from, map } from 'rxjs';
+import { Observable, from } from 'rxjs';
 // import { environment } from '@environment';
 
 type User = {
@@ -31,8 +30,8 @@ export class AuthService {
       sessionStorage.setItem('id', JSON.stringify(item));
   }
 
-  login(user: { nickname: string, password: string }): Observable<User> {
-    return from(invoke<User>('login', user));
+  login(document: { name: string, pass: string }): Observable<User> {
+    return from(invoke<User>('login_user', { document }));
   }
 
   logout(): void {
