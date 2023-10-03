@@ -16,12 +16,7 @@ tauri-build = { version = "1.4", features = [] }
 tauri = { version = "1.4", features = [
   "window-maximize",
   "path-all",
-  "dialog-ask",
   "notification-all",
-  "fs-write-file",
-  "dialog-open",
-  "dialog-save",
-  "fs-read-file",
   "shell-open",
 ] }
 serde = { version = "1.0", features = ["derive"] }

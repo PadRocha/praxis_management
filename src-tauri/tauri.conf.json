@@ -15,11 +15,11 @@
       "all": false,
       "dialog": {
         "all": false,
-        "ask": true,
+        "ask": false,
         "confirm": false,
         "message": false,
-        "open": true,
-        "save": true
+        "open": false,
+        "save": false
       },
       "fs": {
         "all": false,
@@ -27,7 +27,7 @@
         "createDir": false,
         "exists": false,
         "readDir": false,
-        "readFile": true,
+        "readFile": false,
         "removeDir": false,
         "removeFile": false,
         "renameFile": false,
@@ -35,7 +35,7 @@
           "$DOCUMENT/*",
           "$DESKTOP/*"
         ],
-        "writeFile": true
+        "writeFile": false
       },
       "notification": {
         "all": true

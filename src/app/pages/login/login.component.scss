@@ -1,18 +1,21 @@
-@import 'functions';
-@import 'variables';
-@import 'mixins/breakpoints';
+@import 'local_functions';
 @import 'local_variables';
+@import 'mixins/breakpoints';
 
 :host {
   font-family: 'Lato', sans-serif;
+  background-color: $gray-300;
 }
 
 main {
   height: 50vh;
+  color: $dark;
 }
 
 aside {
   height: calc(50vh - $header-min-height);
+  color: $gray-300;
+  background-color: $dark;
 }
 
 @include media-breakpoint-up(md) {
