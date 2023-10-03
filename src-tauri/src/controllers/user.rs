@@ -1,4 +1,4 @@
-use super::User;
+use crate::models::User;
 use mongodb::{
     bson::{doc, to_document, DateTime, Document},
     options::FindOneOptions,

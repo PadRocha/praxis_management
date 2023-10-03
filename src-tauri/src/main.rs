@@ -1,14 +1,16 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use controllers::{
+    create_inventory, create_responsibility, create_software, create_user, get_user, login_user,
+};
 use dotenv::dotenv;
 use mongodb::{options::ClientOptions, Client};
-use responsibilities::create_responsibility;
 use std::env::var;
-use users::{create_user, get_user, login_user};
+use tauri::{generate_handler, Builder};
 
-mod responsibilities;
-mod users;
+mod controllers;
+mod models;
 
 fn main() {
     dotenv().ok();
@@ -17,10 +19,12 @@ fn main() {
     let client = Client::with_options(options).unwrap();
     let db = client.database("praxis");
 
-    tauri::Builder::default()
+    Builder::default()
         .manage(db)
-        .invoke_handler(tauri::generate_handler![
+        .invoke_handler(generate_handler![
+            create_inventory,
             create_responsibility,
+            create_software,
             create_user,
             get_user,
             login_user,
