@@ -18,7 +18,6 @@ fn main() {
     let options = ClientOptions::parse(db_url).expect("invalid database url");
     let client = Client::with_options(options).unwrap();
     let db = client.database("praxis");
-
     Builder::default()
         .manage(db)
         .invoke_handler(generate_handler![

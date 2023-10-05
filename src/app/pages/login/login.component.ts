@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from '@core/services';
 import { ControlsOf } from '@login/models';
 import { ToastService } from '@shared/services';
+import { invoke } from '@tauri-apps/api';
+import { from } from 'rxjs';
 
 interface Login {
   name: string;
@@ -35,6 +37,11 @@ export class LoginComponent implements OnInit {
       pass: new FormControl('', { validators: Validators.required, nonNullable: true }),
     });
     this.is_loading = false;
+    // from(invoke('create_user', { document: { name: "joshua", pass: "123", roles: ['r', 'w', 'x'] } })).subscribe({
+    //   next: (test) => {
+    //     console.log(test);
+    //   }
+    // });
   }
 
   ngOnInit(): void {
@@ -50,6 +57,8 @@ export class LoginComponent implements OnInit {
     const params = this.user_form.getRawValue();
     this.service.login(params).subscribe({
       next: (data) => {
+        console.log(data);
+
         this.service.setToken(data._id);
         this.service.update(data);
         this.router.navigate(['/home']);

@@ -36,7 +36,6 @@ export class UserService extends AuthService {
   }
 
   update({ _id, name }: User): void {
-    console.log(_id, name);
     this.userChange$.next({
       _id: _id.$oid,
       name
