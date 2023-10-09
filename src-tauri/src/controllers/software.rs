@@ -1,24 +1,18 @@
 use crate::models::Software;
-use mongodb::{
-    bson::{doc, to_document, Document},
-    options::InsertOneOptions,
-    results::InsertOneResult,
-    Database,
-};
+use mongodb::{bson::doc, options::InsertOneOptions, results::InsertOneResult, Database};
+use tauri::State;
 
 /// # Crear responsiva
 /// Función para crear un nuevo documento en la bd "software"
 #[tauri::command]
 pub async fn create_software(
-    db: tauri::State<'_, Database>,
-    doc: Software,
+    db: State<'_, Database>,
+    document: Software,
 ) -> Result<InsertOneResult, String> {
-    let collection = db.collection::<Document>("softwares");
-    let document = to_document(&doc).unwrap();
+    let coll = db.collection::<Software>("softwares");
     let options = InsertOneOptions::builder().build();
-    if let Ok(result) = collection.insert_one(document, options).await {
-        Ok(result)
-    } else {
-        Err("Couldnt create user".into())
+    match coll.insert_one(document, options).await {
+        Ok(result) => Ok(result),
+        Err(_) => Err("Couldnt create User".into()),
     }
 }

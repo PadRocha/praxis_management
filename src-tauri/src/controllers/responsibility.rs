@@ -5,12 +5,13 @@ use mongodb::{
     results::InsertOneResult,
     Database,
 };
+use tauri::State;
 
 /// # Crear responsiva
 /// Función para crear un nuevo documento en la bd "responsibilities"
 #[tauri::command]
 pub async fn create_responsibility(
-    db: tauri::State<'_, Database>,
+    db: State<'_, Database>,
     doc: Responsibility,
 ) -> Result<InsertOneResult, String> {
     let collection = db.collection::<Document>("responsibilities");

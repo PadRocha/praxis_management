@@ -1,11 +1,12 @@
 use crate::models::Inventory;
 use mongodb::{bson::doc, options::InsertOneOptions, results::InsertOneResult, Database};
+use tauri::State;
 
 /// # Crear inventario
 /// Función para crear un nuevo documento en la bd "inventories"
 #[tauri::command]
 pub async fn create_inventory(
-    db: tauri::State<'_, Database>,
+    db: State<'_, Database>,
     doc: Inventory,
 ) -> Result<InsertOneResult, String> {
     let collection = db.collection::<Inventory>("inventories");
