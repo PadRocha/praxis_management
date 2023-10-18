@@ -25,10 +25,7 @@ use tauri::State;
 /// }
 /// ```
 #[tauri::command]
-pub async fn create_user(
-    db: State<'_, Database>,
-    document: User,
-) -> Result<InsertOneResult, String> {
+pub async fn create_user(db: State<'_, Database>, document: User) -> Result<InsertOneResult, &str> {
     let mut doc = document;
     doc.hash_pass();
     doc.timestamp();
@@ -36,7 +33,7 @@ pub async fn create_user(
     let options = InsertOneOptions::builder().build();
     match coll.insert_one(doc, options).await {
         Ok(result) => Ok(result),
-        Err(_) => Err("Couldnt create User".into()),
+        Err(_) => Err("Couldnt create User"),
     }
 }
 
@@ -62,7 +59,7 @@ pub async fn create_user(
 /// }
 /// ```
 #[tauri::command]
-pub async fn login_user(db: State<'_, Database>, document: User) -> Result<User, String> {
+pub async fn login_user(db: State<'_, Database>, document: User) -> Result<User, &str> {
     let collection = db.collection::<User>("users");
     let name = document.name;
     let filter: mongodb::bson::Document = doc! { "name": name };
@@ -73,7 +70,7 @@ pub async fn login_user(db: State<'_, Database>, document: User) -> Result<User,
             true => Ok(user),
             false => Err("Invalid password".into()),
         },
-        _ => Err("User not exists".into()),
+        _ => Err("User not exists"),
     }
 }
 
@@ -95,13 +92,13 @@ pub async fn login_user(db: State<'_, Database>, document: User) -> Result<User,
 /// }
 /// ```
 #[tauri::command]
-pub async fn get_user(db: State<'_, Database>, id: String) -> Result<User, String> {
+pub async fn get_user(db: State<'_, Database>, id: String) -> Result<User, &str> {
     let collection = db.collection::<User>("users");
     let filter = doc! { "_id": id };
     let projection = doc! { "_id": 1i32 , "name": 1  };
     let options = FindOneOptions::builder().projection(projection).build();
     match collection.find_one(filter, options).await.unwrap() {
         Some(user) => Ok(user),
-        _ => Err("Document not exists".into()),
+        _ => Err("Document not exists"),
     }
 }

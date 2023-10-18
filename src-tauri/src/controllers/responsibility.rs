@@ -13,13 +13,13 @@ use tauri::State;
 pub async fn create_responsibility(
     db: State<'_, Database>,
     doc: Responsibility,
-) -> Result<InsertOneResult, String> {
+) -> Result<InsertOneResult, &str> {
     let collection = db.collection::<Document>("responsibilities");
     let document = to_document(&doc).unwrap();
     let options = InsertOneOptions::builder().build();
     if let Ok(result) = collection.insert_one(document, options).await {
         Ok(result)
     } else {
-        Err("Couldnt create user".into())
+        Err("Couldnt create user")
     }
 }
