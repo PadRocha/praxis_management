@@ -8,11 +8,11 @@ use tauri::State;
 pub async fn create_software(
     db: State<'_, Database>,
     document: Software,
-) -> Result<InsertOneResult, String> {
+) -> Result<InsertOneResult, &str> {
     let coll = db.collection::<Software>("softwares");
     let options = InsertOneOptions::builder().build();
     match coll.insert_one(document, options).await {
         Ok(result) => Ok(result),
-        Err(_) => Err("Couldnt create User".into()),
+        Err(_) => Err("Couldnt create User"),
     }
 }
