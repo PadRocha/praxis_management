@@ -12,7 +12,11 @@ use tauri::State;
 #[tauri::command]
 pub async fn create_responsibility(
     db: State<'_, Database>,
+<<<<<<< HEAD:src-tauri/src/controllers/responsive_letter.rs
     doc: ResponsiveLetter,
+=======
+    doc: Responsibility,
+>>>>>>> 55030bb7b52095c9eedf8c505b9cfcc484ea2aec:src-tauri/src/controllers/responsibility.rs
 ) -> Result<InsertOneResult, &str> {
     let collection = db.collection::<Document>("responsibilities");
     let document = to_document(&doc).unwrap();
