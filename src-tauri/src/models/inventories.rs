@@ -1,4 +1,4 @@
-use crate::models::responsibilities::Device;
+use crate::models::responsive_letters::Device;
 use serde::{Deserialize, Serialize};
 
 /// # Inventory

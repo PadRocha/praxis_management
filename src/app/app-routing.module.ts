@@ -20,11 +20,11 @@ const routes: Routes = [
     },
   },
   {
-    path: 'responsibilities',
+    path: 'responsive-letter',
     canActivate: [loggedGuard],
     async loadComponent() {
-      const { ResponsibilitiesComponent } = await import('./pages/responsibilities/responsibilities.component');
-      return ResponsibilitiesComponent;
+      const { ResponsiveLetterComponent } = await import('./pages/responsive-letter/responsive-letter.component');
+      return ResponsiveLetterComponent;
     },
   },
   {

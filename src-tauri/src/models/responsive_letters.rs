@@ -14,7 +14,8 @@ pub struct Device {
     /// Disco duro
     pub hard_drive: String,
     /// Procesador
-    pub processor: String,
+    // TODO: Hacer
+    pub processor: ObjectId,
     /// Marca
     pub brand: Option<String>,
     /// Modelo
@@ -34,7 +35,7 @@ pub struct Device {
 /// # Responsibility
 /// Estructura de las responsivas
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Responsibility {
+pub struct ResponsiveLetter {
     /// ID equipo
     pub equipment: String,
     /// DN

@@ -1,4 +1,4 @@
-use crate::models::Responsibility;
+use crate::models::ResponsiveLetter;
 use mongodb::{
     bson::{doc, to_document, Document},
     options::InsertOneOptions,
@@ -12,7 +12,7 @@ use tauri::State;
 #[tauri::command]
 pub async fn create_responsibility(
     db: State<'_, Database>,
-    doc: Responsibility,
+    doc: ResponsiveLetter,
 ) -> Result<InsertOneResult, &str> {
     let collection = db.collection::<Document>("responsibilities");
     let document = to_document(&doc).unwrap();
