@@ -39,7 +39,7 @@ pub struct ResponsiveLetter {
     /// ID equipo
     pub equipment: String,
     /// DN
-    pub dn: String,
+    pub udn: String,
     /// Cliente
     pub client: String,
     /// Gerente

@@ -8,17 +8,13 @@ use mongodb::{
 use tauri::State;
 
 /// # Crear responsiva
-/// Función para crear un nuevo documento en la bd "responsibilities"
+/// Función para crear un nuevo documento en la bd "responsive_letters"
 #[tauri::command]
-pub async fn create_responsibility(
+pub async fn create_responsive_letter(
     db: State<'_, Database>,
-<<<<<<< HEAD:src-tauri/src/controllers/responsive_letter.rs
     doc: ResponsiveLetter,
-=======
-    doc: Responsibility,
->>>>>>> 55030bb7b52095c9eedf8c505b9cfcc484ea2aec:src-tauri/src/controllers/responsibility.rs
 ) -> Result<InsertOneResult, &str> {
-    let collection = db.collection::<Document>("responsibilities");
+    let collection = db.collection::<Document>("responsive_letters");
     let document = to_document(&doc).unwrap();
     let options = InsertOneOptions::builder().build();
     if let Ok(result) = collection.insert_one(document, options).await {

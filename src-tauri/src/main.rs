@@ -1,26 +1,19 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use crate::config_db::config_db;
 use controllers::{
-    create_inventory, create_responsibility, create_software, create_user, get_user, login_user,
+    create_inventory, create_responsive_letter, create_software, create_user, get_user, login_user,
 };
 use dotenv::dotenv;
-use mongodb::{options::ClientOptions, Client, Database};
+use mongodb::{options::ClientOptions, Client};
 use std::env::var;
 use tauri::{generate_context, generate_handler, Builder};
 use tokio::runtime::Runtime;
 
+mod config_db;
 mod controllers;
 mod models;
-
-async fn config_db(client: &Client) -> Result<Database, ()> {
-    let db = client.database("praxis");
-    let _ = db.create_collection("users", None).await;
-    let _ = db.create_collection("responsibilities", None).await;
-    let _ = db.create_collection("inventories", None).await;
-    let _ = db.create_collection("softwares", None).await;
-    Ok(db)
-}
 
 fn main() {
     dotenv().ok();
@@ -33,7 +26,7 @@ fn main() {
         .manage(db)
         .invoke_handler(generate_handler![
             create_inventory,
-            create_responsibility,
+            create_responsive_letter,
             create_software,
             create_user,
             get_user,
