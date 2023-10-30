@@ -13,6 +13,6 @@ pub async fn create_software(
     let options = InsertOneOptions::builder().build();
     match coll.insert_one(document, options).await {
         Ok(result) => Ok(result),
-        Err(_) => Err("Couldnt create User"),
+        Err(_) => Err("Couldnt create Doc"),
     }
 }

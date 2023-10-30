@@ -8,44 +8,57 @@ pub struct Device {
     //// Tipo de dispositivo
     pub device_type: String,
     /// Sistema operativo
-    pub so: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub so: Option<String>,
     /// RAM
-    pub ram: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ram: Option<String>,
     /// Disco duro
-    pub hard_drive: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hard_drive: Option<String>,
     /// Procesador
-    // TODO: Hacer
-    pub processor: ObjectId,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub processor: Option<String>,
     /// Marca
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub brand: Option<String>,
     /// Modelo
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Número de serie
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub serial_number: Option<String>,
     /// Notas sobre máquina
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub notes: Option<String>,
     /// ID del que hizo la responsiva
     pub modified_by: String,
-    /// Programas
-    pub programs: Vec<ObjectId>,
+    /// Programas (softwares)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub programs: Option<Vec<ObjectId>>,
     /// Anexos
-    pub gadgets: Vec<ObjectId>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extras: Option<Vec<ObjectId>>,
 }
 
 /// # Responsibility
 /// Estructura de las responsivas
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ResponsiveLetter {
-    /// ID equipo
+    /// ID equipo [u8; 9]
     pub equipment: String,
-    /// DN
-    pub udn: String,
-    /// Cliente
-    pub client: String,
+
+    // /// DN
+    // pub udn: String,
+    // /// Cliente
+    // pub client: String,
+    // /// Proyecto
+    // pub project: String,
+    /// Clave de proyecto
+    pub proyect_key: String,
+
     /// Gerente
     pub manager: String,
-    /// Proyecto
-    pub project: String,
     /// Id recurso
     pub id_resource: String,
     /// Nombre del recurso

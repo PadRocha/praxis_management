@@ -4,7 +4,7 @@ use mongodb::{bson::doc, options::IndexOptions, Client, Database, IndexModel};
 pub async fn config_db(client: &Client) -> Result<Database, ()> {
     let db = client.database("praxis");
     let _ = db.create_collection("users", None).await;
-    let _ = db.create_collection("responsive_letter", None).await;
+    let _ = db.create_collection("responsive_letters", None).await;
 
     let _ = db.create_collection("inventories", None).await;
     let inventories_index_options = IndexOptions::builder().unique(true).build();
@@ -18,5 +18,6 @@ pub async fn config_db(client: &Client) -> Result<Database, ()> {
         .expect("Error creating index!");
 
     let _ = db.create_collection("softwares", None).await;
+    let _ = db.create_collection("projects", None).await;
     Ok(db)
 }
