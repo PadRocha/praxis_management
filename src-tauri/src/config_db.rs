@@ -1,6 +1,5 @@
-use mongodb::{bson::doc, options::IndexOptions, Client, Database, IndexModel};
-
 use crate::models::Inventory;
+use mongodb::{bson::doc, options::IndexOptions, Client, Database, IndexModel};
 
 pub async fn config_db(client: &Client) -> Result<Database, ()> {
     let db = client.database("praxis");
