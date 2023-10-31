@@ -8,7 +8,7 @@ use controllers::{
 };
 use dotenv::dotenv;
 use mongodb::{options::ClientOptions, Client};
-use std::env::var;
+use std::env;
 use tauri::{generate_context, generate_handler, Builder};
 use tokio::runtime::Runtime;
 
@@ -18,7 +18,7 @@ mod models;
 
 fn main() {
     dotenv().ok();
-    let db_url = var("mongodb").expect("mongodb must be set.");
+    let db_url = env::var("mongodb").expect("mongodb must be set.");
     let options = ClientOptions::parse(db_url).expect("invalid database url");
     let client = Client::with_options(options).unwrap();
     let rt = Runtime::new().unwrap();

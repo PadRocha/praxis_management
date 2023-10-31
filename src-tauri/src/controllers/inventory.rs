@@ -7,11 +7,11 @@ use tauri::State;
 #[tauri::command]
 pub async fn create_inventory(
     db: State<'_, Database>,
-    doc: Inventory,
+    document: Inventory,
 ) -> Result<InsertOneResult, &str> {
     let coll = db.collection::<Inventory>("inventories");
     let options = InsertOneOptions::builder().build();
-    match coll.insert_one(doc, options).await {
+    match coll.insert_one(document, options).await {
         Ok(result) => Ok(result),
         Err(_) => Err("Couldnt create Doc"),
     }

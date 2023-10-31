@@ -1,18 +1,26 @@
-use mongodb::bson::{oid::ObjectId, DateTime};
+use mongodb::bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Program {
+    software: ObjectId,
+    unit: u8,
+    monthly: bool,
+}
 
 /// # Device
 /// Estructura del dispositivo
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Device {
     //// Tipo de dispositivo
-    pub device_type: String,
+    pub gadget: String,
+    /// ID del que hizo la responsiva
+    pub modified_by: String,
     /// Sistema operativo
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub so: Option<String>,
+    pub so: Option<ObjectId>,
     /// RAM
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ram: Option<String>,
+    pub ram: Option<u8>,
     /// Disco duro
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hard_drive: Option<String>,
@@ -31,11 +39,9 @@ pub struct Device {
     /// Notas sobre máquina
     #[serde(skip_serializing_if = "Option::is_none")]
     pub notes: Option<String>,
-    /// ID del que hizo la responsiva
-    pub modified_by: String,
     /// Programas (softwares)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub programs: Option<Vec<ObjectId>>,
+    pub programs: Option<Vec<Program>>,
     /// Anexos
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extras: Option<Vec<ObjectId>>,
@@ -55,7 +61,7 @@ pub struct ResponsiveLetter {
     // /// Proyecto
     // pub project: String,
     /// Clave de proyecto
-    pub proyect_key: String,
+    pub project_key: String,
 
     /// Gerente
     pub manager: String,
@@ -66,13 +72,15 @@ pub struct ResponsiveLetter {
     /// Permisos
     pub permissions: bool,
     /// Fecha de entrega
-    pub delivery_date: DateTime,
-    /// Ubicación de entrega
+    delivery_date: String,
+    // /// Ubicación de entrega
     pub delivery_location: String,
-    /// Fecha de devolución
-    pub return_date: DateTime,
-    /// Ubicación de devolución
-    pub return_location: String,
+    // /// Fecha de devolución
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub return_date: Option<String>,
+    // /// Ubicación de devolución
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub return_location: Option<String>,
     /// Estado de responsiva
     pub status: String,
     /// Razón Social

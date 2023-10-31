@@ -37,11 +37,71 @@ export class LoginComponent implements OnInit {
       pass: new FormControl('', { validators: Validators.required, nonNullable: true }),
     });
     this.is_loading = false;
-    // from(invoke('create_user', { document: { name: "joshua", pass: "123", roles: ['r', 'w', 'x'] } })).subscribe({
-    //   next: (test) => {
-    //     console.log(test);
-    //   }
-    // });
+    // const document = {
+    //   key: 'VW2301-KPAYMANT',
+    //   client: 'VOLKSWAGEN',
+    //   und: 'UND1'
+    // };
+    // const document = {
+    //   name: 'Std 2016',
+    //   price: 800,
+    //   kind: 'visio',
+    // }
+    const document = {
+      equipment: '202302948',
+      project_key: 'VW2301-KPAYMANT',
+      manager: 'Ana Laura Rodríguez Gómez',
+      id_resource: 'LOGW',
+      resource_name: 'Areanne Nayeli López Guerra',
+      permissions: true,
+      delivery_date: new Date().toUTCString(),
+      delivery_location: 'CDMX',
+      status: 'activo',
+      company_name: 'HAYKUN SISTEMAS, S.A. DE C.V.',
+      envoy: false,
+      device: {
+        gadget: 'laptop',
+        modified_by: 'GZMJ',
+        so: '6541351ceb38b216f4ff6f7e',
+        ram: 16,
+        hard_drive: '512 GB SSD',
+        processor: 'Ryzen 7',
+        brand: 'Lenovo',
+        model: 'V14 G2',
+        serial_number: 'PF3L475K',
+        programs: [
+          {
+            // Office 365 E3
+            software: '65413be3fb1af984c6aff760',
+            unit: 1,
+            monthly: true
+          },
+          {
+            // Bitdefender
+            software: '65413cf59a14ddc2fc1287c8',
+            unit: 1,
+            monthly: false
+          },
+          {
+            // Project Std 2016
+            software: '65413d099a14ddc2fc1287c9',
+            unit: 1,
+            monthly: true
+          },
+          {
+            // Visio Std 2016
+            software: '65413d9e3e37e44fb2abc4e1',
+            unit: 1,
+            monthly: true
+          },
+        ]
+      }
+    };
+    from(invoke('create_responsive_letter', { document })).subscribe({
+      next: (test) => {
+        console.log(test);
+      }
+    });
   }
 
   ngOnInit(): void {

@@ -9,6 +9,6 @@ pub struct Software {
     /// Precio de progama
     pub price: f64,
     /// Tipo de programa
-    /// Ejemplos: Office, Antivirus, Project, Visual Studio, Visio, Otros...
+    /// Ejemplos: so, Office, Antivirus, Project, Visual Studio, Visio, Otros...
     pub kind: String,
 }
