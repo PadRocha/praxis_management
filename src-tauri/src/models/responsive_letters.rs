@@ -17,6 +17,7 @@ pub struct Device {
     /// ID del que hizo la responsiva
     pub modified_by: String,
     /// Sistema operativo
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub so: Option<ObjectId>,
     /// RAM
     #[serde(skip_serializing_if = "Option::is_none")]
