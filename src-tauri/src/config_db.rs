@@ -18,6 +18,7 @@ pub async fn config_db(client: &Client) -> Result<Database, ()> {
         .expect("Error creating index!");
 
     let _ = db.create_collection("softwares", None).await;
+    let _ = db.create_collection("hardwares", None).await;
     let _ = db.create_collection("projects", None).await;
     Ok(db)
 }

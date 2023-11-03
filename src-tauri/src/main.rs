@@ -3,8 +3,8 @@
 
 use crate::config_db::config_db;
 use controllers::{
-    create_inventory, create_project, create_responsive_letter, create_software, create_user,
-    get_user, login_user,
+    create_hardware, create_inventory, create_project, create_responsive_letter, create_software,
+    create_user, get_user, login_user,
 };
 use dotenv::dotenv;
 use mongodb::{options::ClientOptions, Client};
@@ -26,6 +26,7 @@ fn main() {
     Builder::default()
         .manage(db)
         .invoke_handler(generate_handler![
+            create_hardware,
             create_inventory,
             create_project,
             create_responsive_letter,

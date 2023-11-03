@@ -47,6 +47,12 @@ export class LoginComponent implements OnInit {
     //   price: 800,
     //   kind: 'visio',
     // }
+    // const document = {
+    //   name: 'Rayzen 7',
+    //   price: 2700.00,
+    //   year: 2023,
+    //   kind: 'laptop'
+    // };
     const document = {
       equipment: '202302948',
       project_key: 'VW2301-KPAYMANT',
@@ -60,12 +66,13 @@ export class LoginComponent implements OnInit {
       company_name: 'HAYKUN SISTEMAS, S.A. DE C.V.',
       envoy: false,
       device: {
-        gadget: 'laptop',
+        hardware: '65455cddf8816e7ca3b2b210',
+        // gadget: 'laptop',
         modified_by: 'GZMJ',
         so: '6541351ceb38b216f4ff6f7e',
         ram: 16,
         hard_drive: '512 GB SSD',
-        processor: 'Ryzen 7',
+        // processor: 'Ryzen 7',
         brand: 'Lenovo',
         model: 'V14 G2',
         serial_number: 'PF3L475K',

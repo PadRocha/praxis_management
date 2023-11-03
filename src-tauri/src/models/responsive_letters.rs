@@ -13,7 +13,7 @@ pub struct Program {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Device {
     //// Tipo de dispositivo
-    pub gadget: String,
+    pub hardware: ObjectId,
     /// ID del que hizo la responsiva
     pub modified_by: String,
     /// Sistema operativo
@@ -25,9 +25,10 @@ pub struct Device {
     /// Disco duro
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hard_drive: Option<String>,
-    /// Procesador
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub processor: Option<String>,
+
+    // /// Procesador
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    // pub processor: Option<String>,
     /// Marca
     #[serde(skip_serializing_if = "Option::is_none")]
     pub brand: Option<String>,
