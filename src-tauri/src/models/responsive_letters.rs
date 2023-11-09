@@ -21,7 +21,7 @@ pub struct Device {
     pub so: Option<ObjectId>,
     /// RAM
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ram: Option<u8>,
+    pub ram: Option<Vec<ObjectId>>,
     /// Disco duro
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hard_drive: Option<String>,
@@ -54,7 +54,8 @@ pub struct Device {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ResponsiveLetter {
     /// ID equipo [u8; 9]
-    pub equipment: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub equipment: Option<String>,
 
     // /// DN
     // pub udn: String,
@@ -63,7 +64,7 @@ pub struct ResponsiveLetter {
     // /// Proyecto
     // pub project: String,
     /// Clave de proyecto
-    pub project_key: String,
+    pub project_key: ObjectId,
 
     /// Gerente
     pub manager: String,

@@ -11,4 +11,6 @@ pub struct Software {
     /// Tipo de programa
     /// Ejemplos: so, Office, Antivirus, Project, Visual Studio, Visio, Otros...
     pub kind: String,
+    /// Si es visible ante sistema
+    pub visible: bool,
 }

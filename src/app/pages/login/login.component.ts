@@ -53,14 +53,20 @@ export class LoginComponent implements OnInit {
     //   year: 2023,
     //   kind: 'laptop'
     // };
+    // const document = {
+    //   name: '4GB',
+    //   price: 0,
+    //   kind: 'ram',
+    //   visible: true
+    // }
     const document = {
       equipment: '202302948',
-      project_key: 'VW2301-KPAYMANT',
+      project_key: '65412f920948081e0ccde46b',
       manager: 'Ana Laura Rodríguez Gómez',
       id_resource: 'LOGW',
       resource_name: 'Areanne Nayeli López Guerra',
       permissions: true,
-      delivery_date: new Date().toUTCString(),
+      delivery_date: '2023-11-09',
       delivery_location: 'CDMX',
       status: 'activo',
       company_name: 'HAYKUN SISTEMAS, S.A. DE C.V.',
@@ -70,7 +76,15 @@ export class LoginComponent implements OnInit {
         // gadget: 'laptop',
         modified_by: 'GZMJ',
         so: '6541351ceb38b216f4ff6f7e',
-        ram: 16,
+        ram: [
+          {
+            id: '654d2980992c41509284316d',
+            unit: 2
+
+          },
+          '654d2980992c41509284316d',
+          '654d2a85111b81f4090f8077'
+        ],
         hard_drive: '512 GB SSD',
         // processor: 'Ryzen 7',
         brand: 'Lenovo',

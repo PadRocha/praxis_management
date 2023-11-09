@@ -9,8 +9,11 @@ pub struct Hardware {
     /// Precio de progama
     pub price: f64,
     /// Año de la máquina
-    pub year: u16,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub year: Option<u16>,
     /// Tipo de programa
     /// Ejemplos: ram, Otros...
     pub kind: String,
+    /// Si es visible ante sistema
+    pub visible: bool,
 }
