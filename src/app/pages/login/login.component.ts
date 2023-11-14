@@ -80,10 +80,11 @@ export class LoginComponent implements OnInit {
           {
             id: '654d2980992c41509284316d',
             unit: 2
-
           },
-          '654d2980992c41509284316d',
-          '654d2a85111b81f4090f8077'
+          {
+            id: '654d2a85111b81f4090f8077',
+            unit: 1
+          }
         ],
         hard_drive: '512 GB SSD',
         // processor: 'Ryzen 7',

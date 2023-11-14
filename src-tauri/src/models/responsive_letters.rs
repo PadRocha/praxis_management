@@ -8,20 +8,26 @@ pub struct Program {
     monthly: bool,
 }
 
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Ram {
+    id: ObjectId,
+    unit: u8,
+}
+
 /// # Device
 /// Estructura del dispositivo
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Device {
     //// Tipo de dispositivo
     pub hardware: ObjectId,
-    /// ID del que hizo la responsiva
+    /// ID del que hizo gla responsiva
     pub modified_by: String,
     /// Sistema operativo
     #[serde(skip_serializing_if = "Option::is_none")]
     pub so: Option<ObjectId>,
     /// RAM
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ram: Option<Vec<ObjectId>>,
+    pub ram: Option<Vec<Ram>>,
     /// Disco duro
     #[serde(skip_serializing_if = "Option::is_none")]
     pub hard_drive: Option<String>,
