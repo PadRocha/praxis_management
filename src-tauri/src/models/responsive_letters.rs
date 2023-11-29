@@ -1,17 +1,21 @@
 use mongodb::bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};
 
+/// # Ram
+/// Estructura de las Ram
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Ram {
+    id: ObjectId,
+    unit: u8,
+}
+
+/// # Program
+/// Estructura de los programas
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Program {
     software: ObjectId,
     unit: u8,
     monthly: bool,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Ram {
-    id: ObjectId,
-    unit: u8,
 }
 
 /// # Device
@@ -30,11 +34,7 @@ pub struct Device {
     pub ram: Option<Vec<Ram>>,
     /// Disco duro
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hard_drive: Option<String>,
-
-    // /// Procesador
-    // #[serde(skip_serializing_if = "Option::is_none")]
-    // pub processor: Option<String>,
+    pub disk: Option<String>,
     /// Marca
     #[serde(skip_serializing_if = "Option::is_none")]
     pub brand: Option<String>,
@@ -62,16 +62,8 @@ pub struct ResponsiveLetter {
     /// ID equipo [u8; 9]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub equipment: Option<String>,
-
-    // /// DN
-    // pub udn: String,
-    // /// Cliente
-    // pub client: String,
-    // /// Proyecto
-    // pub project: String,
     /// Clave de proyecto
     pub project_key: ObjectId,
-
     /// Gerente
     pub manager: String,
     /// Id recurso

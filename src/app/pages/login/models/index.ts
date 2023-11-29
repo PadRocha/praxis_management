@@ -5,3 +5,10 @@ export type ControlsOf<T extends Record<any, any>> = {
   ? FormGroup<ControlsOf<T[K]>>
   : FormControl<T[K]>;
 }
+
+export interface Login {
+  name: string;
+  pass: string;
+}
+
+export type ILogin = ControlsOf<Login>;

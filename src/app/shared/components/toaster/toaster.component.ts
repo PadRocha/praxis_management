@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { ToastInfo, ToastService } from '@shared/services';
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'toaster',
-  templateUrl: './toaster.component.html',
-  styleUrls: ['./toaster.component.scss']
+    selector: 'toaster',
+    templateUrl: './toaster.component.html',
+    styleUrls: ['./toaster.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgbToast]
 })
 export class ToasterComponent {
   constructor(

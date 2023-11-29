@@ -2,9 +2,10 @@ import { ViewportScroller } from '@angular/common';
 import { Component, HostBinding, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'scroll-to-top',
-  template: '',
-  styleUrls: ['./scroll-to-top.component.scss']
+    selector: 'scroll-to-top',
+    template: '',
+    styleUrls: ['./scroll-to-top.component.scss'],
+    standalone: true
 })
 export class ScrollToTopComponent {
   private toogle_ratio: number;

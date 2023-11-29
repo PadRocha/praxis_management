@@ -3,7 +3,8 @@ import { Directive, HostListener, Inject, InjectionToken, PLATFORM_ID } from '@a
 import { ToastService } from '@shared/services';
 
 @Directive({
-  selector: 'a[copy]'
+    selector: 'a[copy]',
+    standalone: true
 })
 export class CopyDirective {
   constructor(

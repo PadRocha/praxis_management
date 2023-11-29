@@ -1,12 +1,16 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormValidator } from '@shared/utils/FormValidator';
+import { CapitalizePipe } from '../../pipes/capitalize/capitalize.pipe';
+import { CopyDirective } from '../../directives/copy/copy.directive';
 
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.scss']
+    selector: 'app-confirm',
+    templateUrl: './confirm.component.html',
+    styleUrls: ['./confirm.component.scss'],
+    standalone: true,
+    imports: [CopyDirective, FormsModule, ReactiveFormsModule, CapitalizePipe]
 })
 export class ConfirmComponent implements OnInit {
   action!: 'remover' | 'resetear' | 'eliminar' | 'actualizar' | 'guardar' | 'editar';

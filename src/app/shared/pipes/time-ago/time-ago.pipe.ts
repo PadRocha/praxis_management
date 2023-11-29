@@ -2,8 +2,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Inject, NgZone, OnDestroy, Pipe, PipeTransform, PLATFORM_ID } from '@angular/core';
 
 @Pipe({
-  name: 'timeAgo',
-  pure: false,
+    name: 'timeAgo',
+    pure: false,
+    standalone: true,
 })
 export class TimeAgoPipe implements PipeTransform, OnDestroy {
   private timer: number | null;

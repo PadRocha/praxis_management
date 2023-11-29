@@ -1,13 +1,16 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgClass, NgStyle, NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'input-select',
-  templateUrl: './input-select.component.html',
-  styleUrls: ['./input-select.component.scss'],
-  host: {
-    class: 'input-group input-group-sm position-relative w-auto dropup',
-  }
+    selector: 'input-select',
+    templateUrl: './input-select.component.html',
+    styleUrls: ['./input-select.component.scss'],
+    host: {
+        class: 'input-group input-group-sm position-relative w-auto dropup',
+    },
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgClass, NgStyle, NgIf, NgFor]
 })
 export class InputSelectComponent {
   _form!: FormControl<any>;

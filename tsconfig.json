@@ -29,14 +29,14 @@
       "@core/*": [
         "src/app/core/*"
       ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
       "@environment": [
         "src/environments/environment.ts"
       ],
       "@login/*": [
         "src/app/pages/login/*"
-      ],
-      "@shared/*": [
-        "src/app/shared/*"
       ]
     },
     "sourceMap": true,

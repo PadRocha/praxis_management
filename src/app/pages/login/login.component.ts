@@ -3,15 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@core/services';
-import { ControlsOf } from '@login/models';
+import { ILogin } from '@login/models';
 import { ToastService } from '@shared/services';
 import { invoke } from '@tauri-apps/api';
 import { from } from 'rxjs';
-
-interface Login {
-  name: string;
-  pass: string;
-}
 
 @Component({
   selector: 'app-login',
@@ -24,7 +19,7 @@ interface Login {
   },
 })
 export class LoginComponent implements OnInit {
-  user_form: FormGroup<ControlsOf<Login>>
+  user_form: FormGroup<ILogin>
   is_loading: boolean;
 
   constructor(
@@ -32,7 +27,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toast: ToastService,
   ) {
-    this.user_form = new FormGroup<ControlsOf<Login>>({
+    this.user_form = new FormGroup<ILogin>({
       name: new FormControl('', { validators: Validators.required, nonNullable: true }),
       pass: new FormControl('', { validators: Validators.required, nonNullable: true }),
     });
@@ -60,66 +55,72 @@ export class LoginComponent implements OnInit {
     //   visible: true
     // }
     const document = {
-      equipment: '202302948',
-      project_key: '65412f920948081e0ccde46b',
-      manager: 'Ana Laura Rodríguez Gómez',
-      id_resource: 'LOGW',
-      resource_name: 'Areanne Nayeli López Guerra',
-      permissions: true,
-      delivery_date: '2023-11-09',
-      delivery_location: 'CDMX',
-      status: 'activo',
-      company_name: 'HAYKUN SISTEMAS, S.A. DE C.V.',
-      envoy: false,
-      device: {
-        hardware: '65455cddf8816e7ca3b2b210',
-        // gadget: 'laptop',
-        modified_by: 'GZMJ',
-        so: '6541351ceb38b216f4ff6f7e',
-        ram: [
-          {
-            id: '654d2980992c41509284316d',
-            unit: 2
-          },
-          {
-            id: '654d2a85111b81f4090f8077',
-            unit: 1
-          }
-        ],
-        hard_drive: '512 GB SSD',
-        // processor: 'Ryzen 7',
-        brand: 'Lenovo',
-        model: 'V14 G2',
-        serial_number: 'PF3L475K',
-        programs: [
-          {
-            // Office 365 E3
-            software: '65413be3fb1af984c6aff760',
-            unit: 1,
-            monthly: true
-          },
-          {
-            // Bitdefender
-            software: '65413cf59a14ddc2fc1287c8',
-            unit: 1,
-            monthly: false
-          },
-          {
-            // Project Std 2016
-            software: '65413d099a14ddc2fc1287c9',
-            unit: 1,
-            monthly: true
-          },
-          {
-            // Visio Std 2016
-            software: '65413d9e3e37e44fb2abc4e1',
-            unit: 1,
-            monthly: true
-          },
-        ]
-      }
-    };
-    from(invoke('create_responsive_letter', { document })).subscribe({
+      name: '512GB',
+      price: 180.00,
+      kind: 'ssd',
+      visible: true
+    }
+    // const document = {
+    //   equipment: '202302948',
+    //   project_key: '65412f920948081e0ccde46b',
+    //   manager: 'Ana Laura Rodríguez Gómez',
+    //   id_resource: 'LOGW',
+    //   resource_name: 'Areanne Nayeli López Guerra',
+    //   permissions: true,
+    //   delivery_date: '2023-11-09',
+    //   delivery_location: 'CDMX',
+    //   status: 'activo',
+    //   company_name: 'HAYKUN SISTEMAS, S.A. DE C.V.',
+    //   envoy: false,
+    //   device: {
+    //     hardware: '65455cddf8816e7ca3b2b210',
+    //     // gadget: 'laptop',
+    //     modified_by: 'GZMJ',
+    //     so: '6541351ceb38b216f4ff6f7e',
+    //     ram: [
+    //       {
+    //         id: '654d2980992c41509284316d',
+    //         unit: 2
+    //       },
+    //       {
+    //         id: '654d2a85111b81f4090f8077',
+    //         unit: 1
+    //       }
+    //     ],
+    //     hard_drive: '512 GB SSD',
+    //     // processor: 'Ryzen 7',
+    //     brand: 'Lenovo',
+    //     model: 'V14 G2',
+    //     serial_number: 'PF3L475K',
+    //     programs: [
+    //       {
+    //         // Office 365 E3
+    //         software: '65413be3fb1af984c6aff760',
+    //         unit: 1,
+    //         monthly: true
+    //       },
+    //       {
+    //         // Bitdefender
+    //         software: '65413cf59a14ddc2fc1287c8',
+    //         unit: 1,
+    //         monthly: false
+    //       },
+    //       {
+    //         // Project Std 2016
+    //         software: '65413d099a14ddc2fc1287c9',
+    //         unit: 1,
+    //         monthly: true
+    //       },
+    //       {
+    //         // Visio Std 2016
+    //         software: '65413d9e3e37e44fb2abc4e1',
+    //         unit: 1,
+    //         monthly: true
+    //       },
+    //     ]
+    //   }
+    // };
+    from(invoke('create_hardware', { document })).subscribe({
       next: (test) => {
         console.log(test);
       }
